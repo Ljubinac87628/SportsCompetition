@@ -1,0 +1,88 @@
+﻿@model Services.Models.CompetitionsViewModel
+
+<div class="container">
+    <div class="row">
+        <div class="col-2">
+            <button type="button" id="addCompetitionButton" class="btn btn-success btn-sm btn-block" data-toggle="modal" data-target="#addCompetitionModal">Add Competiton</button>
+            <button type="button" id="deleteCompetitionButton" class="btn btn-danger btn-sm btn-block">Delete Competition</button>
+        </div>
+
+        <div class="col-10">
+            <div class="text-center">
+                <h3 class="display-4">Competition schedule</h3>
+            </div>
+            <br>
+
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Competition Type</th>
+                        <th scope="col">Venue</th>
+                        <th scope="col">Organizer</th>
+                        <th scope="col">Competitors</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var competition in Model.Competitions)
+                    {
+                        <tr>
+                            <td>@competition.CompetitionTypeName</td>
+                            <td>@competition.VenueName</td>
+                            <td>@competition.CompetitionOrganizerName</td>
+                            <td>
+                                <table class="competitorsTable">
+                                    <tbody>
+                                        @foreach (var competitor in competition.Competitors)
+                                        {
+                                            <tr>
+                                                <td>@competitor.Name</td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="addCompetitionModal" tabindex="-1" role="dialog" aria-labelledby="addCompetitionModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addCompetitionModalLongTitle">Add new competition</h5>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label for="competitionTypeSelect">Competition Type</label>
+                        <select class="form-control" id="competitionTypeSelect">
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="venueSelect">Venue</label>
+                        <select class="form-control" id="venueSelect">
+                            <option>Arena</option>
+                            <option>Stadion JNA</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="competitionOrganizerSelect">Organizer</label>
+                        <select class="form-control" id="competitionOrganizerSelect">
+                            <option>Milan</option>
+                            <option>Milos</option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
